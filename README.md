@@ -1,7 +1,8 @@
-#Thymeleaf cheat sheet
-
+Thymeleaf cheat sheet
+==================
 This is a cheat sheet to summarize all the main thymeleaf features and how to use them to kickstart you with thymeleaf.
 
+----------
 ##**What is Thymeleaf**
 
 
@@ -22,6 +23,7 @@ Another example is:
     <tr>
    Here thymeleaf will repeat the `<tr>` with the list of products, this is defined by the attribute `th:each`, it will also remove the dummy content in both the `<td>` tags, and replace them with the content that is evaluated from `th:text="${prod.name}"` and `th:text="${prod.price}"`.
 
+_________
 
 ##**Thymeleaf Layout Dialect**
 
@@ -84,7 +86,7 @@ Thymeleaf has a spring integration project, that eases the integration of **Spri
 	    </bean>
 
 This configuration will make the thymeleaf resolver the `ViewResolver` of Spring MVC, the `<property name="templateMode" value="HTML5" />` is particulary important, as it sets the mode of which thymeleaf should operate, we here specify the mode to be **HTML5**, which means that thymeleaf should produce valid HTML5 html.
-
+_____________________
 
 ### **Attributes**
 Thymeleaf is an attribute based template engine, it processes attributes and their values to build it's DOM tree.
@@ -118,7 +120,7 @@ The `value` attribute will be set to the value of `#{subscribe.submit}` after pr
 	          <p th:case="*">User is some other thing</p>
          </div>
 for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
-
+_____________________
 ###**Expressions**
 Thymeleaf works based on many expressions, thymeleaf has different expression syntax other than the traditional `${variablename.propertyname}` syntax, namely:
 
@@ -127,26 +129,45 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
 * `${variable}`: This is the variables expression, if your expression should evaluate to a variable or you have a variable in your `model` as an attribute, you must use this expression to access it, other expressions are used for different purposes and may not functional correctly with variables, example:
 `<span th:text="${today}">13 february 2011</span>`
 * Thymeleaf provides some predefined variables that can be accessed using the `${#variableName}` syntaxt and they are:
-  1. `#ctx` : the context object.
-  2. `#vars`: the context variables .
-  3. `#locale` : the context locale.
-  4. `#httpServletRequest` : (only in Web Contexts ) the         				`HttpServletRequest` object.
-  5. `#httpSession`: The session object of current session
-  6. `#dates` : utility methods for `java.util.Date` objects : formatting , component extraction, etc.
-  7. `#calendars` : analog ous to #dates , but for `java.util.Calendar` objects .
-  8. `#numbers` : utility methods for formatting numeric objects .
-  9. `#strings` : utility methods for String objects : contains , startsWith, prepending /appending , etc.
-  10. `#objects` : utility methods for objects in general.
-  11. `#bools` : utility methods for boolean evaluation.
-  12. `#arrays` : utility methods for arrays .
-  13. `#lists` : utility methods for lists .
-  14. `#sets` : utility methods for sets .
+	1. `#ctx` : the context object.
+	2. `#vars`: the context variables .
+	3. `#locale` : the context locale.
+	4. `#httpServletRequest` : (only in Web Contexts ) the         				`HttpServletRequest` object.
+	5. `#httpSession`: The session object of current session
+	6. `#dates` : utility methods for `java.util.Date` objects : formatting , component extraction, etc.
+	7. `#calendars` : analog ous to #dates , but for `java.util.Calendar` objects .
+	8. `#numbers` : utility methods for formatting numeric objects .
+	9. `#strings` : utility methods for String objects : contains , startsWith, prepending /appending , etc.
+	10. `#objects` : utility methods for objects in general.
+	11. `#bools` : utility methods for boolean evaluation.
+	12. `#arrays` : utility methods for arrays .
+	13. `#lists` : utility methods for lists .
+	14. `#sets` : utility methods for sets .
 
-  Example:
-  
-      <span th:text="${#locale.country}">
-  and 
-  
-      <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
+	Example:
 
-* 
+          <span th:text="${#locale.country}">
+	and 
+
+          <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
+* `*{property}`: This is used the same way as the `${variable}` but works on selected objects, i.e. objects which are set using `th:object` attribute, for example
+
+          <div th:object="${session.user}">
+	          <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
+	          <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
+	          <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
+          </div>
+     This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
+     *Note*: The `th:object` is defined only in the context of the tag it's declare on, meaning it's not available outside the context of that tag.
+* `@{/link/path}`: This will create a link to the path specified relative to the deployment context, so if the application is deployed at context **my-app**, then the generated path will be **/my-app/link/path**.
+To add get parameters use `@{/link/path(param=value)}` which will generate **/link/path?param=value**
+For Path variables use: `@{/link/{pathVariable}/path(pathVariable=${variable})}`
+which will replace the **{pathVariable}** with the value from **${variable}**
+
+*  Literals: You can also write some normal literals instead of any expressions, 
+	* "'the literal string'": You can write normal strings between two **''**  single quotes
+	*  "3 + 2": Normal numeric expressions
+	* "false","true" and "null": are evaluted to normal `false`,`true` and `null` expressions
+	* "singleWordToken": tokens with single words do not need single quotes and can be writtes as is.
+* `${#fields}`:  Spring MVC adds another predined varable which is `#fields`, it refers to `spring-form`  fields and their validation erros, mainly used for error validation
+* `${@beanName.method()}`: Also spring specific bean method call expression, this will call a method on a spring bean called `beanName`, it will look for the bean in the current spring context
