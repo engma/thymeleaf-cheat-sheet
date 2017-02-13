@@ -134,7 +134,7 @@ Thymeleaf works based on many expressions, thymeleaf has different expression sy
 
 * `#{message.in.proprties.file}` similar to the **i18n** resolver in **JSF**, this expressions will look for the value provided in the localization properties files provided to the application.
 Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will use the `MessageSource` of spring
-* `${variable}`: This is the variables expression, if your expression should evaluate to a variable or you have a variable in your `model` as an attribute, you must use this expression to access it, other expressions are used for different purposes and may not functional correctly with variables, example:
+* `${variable}`: This is the variables expression, if your expression should evaluate to a variable or you have a variable in your `model` as an attribute, you must use this expression to access it, other expressions are used for different purposes and may not function correctly with variables, example:
 `<span th:text="${today}">13 february 2011</span>`
 * Thymeleaf provides some predefined variables that can be accessed using the `${#variableName}` syntaxt and they are:
 	1. `#ctx` : the context object.
@@ -156,7 +156,7 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
 
           <span th:text="${#locale.country}">
 	and 
-
+	
           <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
 * `*{property}`: This is used the same way as the `${variable}` but works on selected objects, i.e. objects which are set using `th:object` attribute, for example
 
@@ -166,7 +166,7 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
 	          <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
           </div>
   This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
-     *Note*: The `th:object` is defined only in the context of the tag it's declare on, meaning it's not available outside the context of that tag.
+     *Note*: The `th:object` is defined only in the context of the tag it's declare on, this means that it's not available outside the context of that tag.
 * `@{/link/path}`: This will create a link to the path specified relative to the deployment context, so if the application is deployed at context **my-app**, then the generated path will be **/my-app/link/path**.
 To add get parameters use `@{/link/path(param=value)}` which will generate **/link/path?param=value**
 For Path variables use: `@{/link/{pathVariable}/path(pathVariable=${variable})}`
@@ -176,6 +176,6 @@ which will replace the **{pathVariable}** with the value from **${variable}**
 	* "'the literal string'": You can write normal strings between two **''**  single quotes
 	*  "3 + 2": Normal numeric expressions
 	* "false","true" and "null": are evaluted to normal `false`,`true` and `null` expressions
-	* "singleWordToken": tokens with single words do not need single quotes and can be writtes as is.
+	* "singleWordToken": tokens with single words do not need single quotes and can be written as they are.
 * `${#fields}`:  Spring MVC adds another predined varable which is `#fields`, it refers to `spring-form`  fields and their validation erros, mainly used for error validation
-* `${@beanName.method()}`: Also spring specific bean method call expression, this will call a method on a spring bean called `beanName`, it will look for the bean in the current spring context
+* `${@beanName.method()}`: Also spring specific, a bean method call expression, this will call a method on a spring bean called `beanName`, it will look for the bean in the current spring context and then execute this method
