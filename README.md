@@ -7,9 +7,15 @@ This is a cheat sheet to summarize all the main thymeleaf features and how to us
 
 
 Thymeleaf is an engine that builds dynamic pages from templates that are written in XHTML with the help of some special attributes, so it is a **template engine**.
-A template engine is an engine that parses XHTML pages that contain special tags or attributes or syntax that is bound to variables at the server, and resolves those them into their values, then parses the page according to those values and builds a normal HTML page.
-Thymeleaf is an **in-memory** template engine, so it does all of it's processing in memory, it builds a DOM that maps to the HTML of the page in-memory and when values change the parsed pages are changed, also it's caching is an in-memory caching system.
-Thymeleaf is a template engine that relays mostly on **attributes** instead of tags like what JSP would do, this makes it testable in the browser directly without requiring a server.
+
+A template engine in Java is an engine that parses XHTML pages which contain special tags or attributes or syntax, those variables are bound to fields of beans on the server side, and resolves them into their actual values, then processes the page according to those values and builds a normal HTML page.
+
+The templating engine will then resolve the values of the list of students that was given from the controller, and then use those values to replace the attributes and dummy text with actual data from the fetched list.
+
+Thymeleaf is an **in-memory** template engine, so it does all of it's processing in memory, it builds a DOM that maps to the HTML of the page and binds the values to those fields which are displayed, and when values from server change the parsed fields and pages are updated accordingly, also it's caching is an in-memory caching system, meaning cache will invalidate with server restarts.
+
+Thymeleaf is a template engine that relys mostly on **attributes** instead of **tags** as in JSP or JSF, this makes it testable in the browser directly without requiring a server to parse the special html tags, which eases the work between designer and developer, as they can both test the same page.
+
 Those attributes are then translated and processed by Thymeleaf into normal HTML.
 ###How it works
 `<p th:text="'Thymeleaf will display this'">text</p>`
@@ -102,23 +108,25 @@ The `value` attribute will be set to the value of `#{subscribe.submit}` after pr
 * `th:value`,`th:action`,`th:href, th:onclick`...etc: Those attributes can be used as a shorthand of the `th:attr` syntax as equally equivilant to it, so the attribute `th:action` is equal to `th:attr="action="` 
 * `th:attrappend`: This will not replace the attribute value, but will only append the value to it, example: `th:attrappend="class=${' ' + cssStyle}"`, for more information check [setting_attribute_values](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#setting-attribute-values)
 * `th:each`: This is the iteration attribute, it is analogous to Java's for-each loop: `for(Object o : list)`, but its syntax is 
-
-        <tr th:each="prod,iterStat : ${prods}" th:class="${iterStat.odd}? 'odd'">
-           <td th:text="${prod.name}">Onions</td>
-           <td th:text="${prod.price}">2.41</td>
-            <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
-        </tr>
-    The `th:each="prod,iterStat : ${prods}"` is equivilat to `for(Product prod : prods)` and the `iterStat` is the status variable of the iteration, it contains inforamtion about current iteration like its number,index,total count ...etc. 
-    The iteration object `prod` can then be accessed in the context of the tag `<th>`, meaning it will only exist within the tag that it's been defined in, for more information check [iteration](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#iteration)
+```html
+<tr th:each="prod,iterStat : ${prods}" th:class="${iterStat.odd}? 'odd'">
+     <td th:text="${prod.name}">Onions</td>
+     <td th:text="${prod.price}">2.41</td>
+    <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+</tr>
+``` 
+The `th:each="prod,iterStat : ${prods}"` is equivilat to `for(Product prod : prods)` and the `iterStat` is the status variable of the iteration, it contains inforamtion about current iteration like its number,index,total count ...etc. 
+The iteration object `prod` can then be accessed in the context of the tag `<th>`, meaning it will only exist within the tag that it's been defined in, for more information check [iteration](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#iteration)
 * `th:if`: Evaluates the conditions specified in the attribute and if they are true, the tag is displayed, if not they are not displayed, example : `th:if="${user.admin}"`
 * `th:unless`: Is the opposite of `th:if`, it will display the tag if the value is false, so `th:unless="${user.admin}"` is equal to `th:if="${!(user.admin)}"`
 * `th:switch` and `th:case`: Those attributes are used to create a swtich statement, `th:switch` will hold the variable to switch on, and `th:case` will evaluate the case statements for this variable, example
-
-         <div th:switch="${user.role}">
-	          <p th:case="'admin'">User is an administrator</p>
-	           <p th:case="#{roles.manager}">User is a manager</p>
-	          <p th:case="*">User is some other thing</p>
-         </div>
+```html
+<div th:switch="${user.role}">
+	<p th:case="'admin'">User is an administrator</p>
+	<p th:case="#{roles.manager}">User is a manager</p>
+	<p th:case="*">User is some other thing</p>
+</div>
+```
 for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
 _____________________
 ###**Expressions**
@@ -157,7 +165,7 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
 	          <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
 	          <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
           </div>
-     This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
+  This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
      *Note*: The `th:object` is defined only in the context of the tag it's declare on, meaning it's not available outside the context of that tag.
 * `@{/link/path}`: This will create a link to the path specified relative to the deployment context, so if the application is deployed at context **my-app**, then the generated path will be **/my-app/link/path**.
 To add get parameters use `@{/link/path(param=value)}` which will generate **/link/path?param=value**
