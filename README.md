@@ -42,13 +42,14 @@ To start you need the dependency:
 			<version>1.3.1</version>
 	</dependency>
 
-So you just add them to your parent layout, and then make the part that you want to be then filled by other templates a **fragment**, then in other templates you use this parent template as your **layout-decorator**, then override the **fragment** to filled by your data. 
-Example say we have a **main.html** which contains a navbar a sidebar and a footer, and it has the middle part empty waiting for content to be inserted in it, it then defines this part as follows
+Now you can add your common content in your parent laytout page, and then define the part that you want extending templates to substitute with their custom content in a **fragment**, then in extending templates you use this parent template as your **layout-decorator**, then override the **fragment** with your custom content. 
+
+Example say we have a **main.html** which contains a navbar, a sidebar, and a footer, and it has the middle part empty waiting for content to be inserted in it, it then defines this middle part as follows
 
     <div class="container">
 		<div layout:fragment="content" class="noborder">
 		</div>
-	</div>
+    </div>
 
 Then in the overriding template, for example **index.html**, we use `layout:decorator="main"` at the `<html>` tag, where **main** is the parent template to be extended.
 Then in **index.html** we do this to override the fragment `content`
