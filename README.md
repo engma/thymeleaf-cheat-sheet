@@ -2,8 +2,9 @@ Thymeleaf cheat sheet
 ==================
 This is a cheat sheet to summarize all the main thymeleaf features and how to use them to kickstart you with thymeleaf.
 
-----------
-##**What is Thymeleaf**
+-----------
+
+## What is Thymeleaf
 
 
 Thymeleaf is an engine that builds dynamic pages from templates that are written in XHTML with the help of some special attributes, so it is a **template engine**.
@@ -17,7 +18,7 @@ Thymeleaf is an **in-memory** template engine, so it does all of it's processing
 Thymeleaf is a template engine that relys mostly on **attributes** instead of **tags** as in JSP or JSF, this makes it testable in the browser directly without requiring a server to parse the special html tags, which eases the work between designer and developer, as they can both test the same page.
 
 Those attributes are then translated and processed by Thymeleaf into normal HTML.
-###How it works
+### How it works
 `<p th:text="'Thymeleaf will display this'">text</p>`
 Here thymeleaf will process the text inside the `th:text` attribute, and replace the contents of the `<p>` tag with it.
 Thymeleaf works by replacing the contents of the tags that it's attributes are defined on
@@ -31,15 +32,15 @@ Another example is:
 
 _________
 
-##**Thymeleaf Layout Dialect**
+## Thymeleaf Layout Dialect
 
 This dialect adds JSF-like template hierarchy to the Thymeleaf Engine, which makes it possible that you have templates extending other templates and overriding fragments of those parent templates that we open for extension. This is useful when you have a common layout that you want to apply to all your pages and views, for example a footer or a sidebar or a common CSS and JavaScript tags. 
 To start you need the dependency:
 
-    <dependency>
-			<groupId>nz.net.ultraq.thymeleaf</groupId>
-			<artifactId>thymeleaf-layout-dialect</artifactId>
-			<version>1.3.1</version>
+        <dependency>
+		<groupId>nz.net.ultraq.thymeleaf</groupId>
+		<artifactId>thymeleaf-layout-dialect</artifactId>
+		<version>1.3.1</version>
 	</dependency>
 
 Now you can add your common content in your parent laytout page, and then define the part that you want extending templates to substitute with their custom content in a **fragment**, then in extending templates you use this parent template as your **layout-decorator**, then override the **fragment** with your custom content. 
@@ -62,7 +63,7 @@ This will override the fragments content withe the content in the `div` tag.
 for more information, please check [this](https://github.com/ultraq/thymeleaf-layout-dialect)
 
 ---------------------
-###**Spring Integration**
+### Spring Integration
 Thymeleaf has a spring integration project, that eases the integration of **Spring MVC** with thymeleaf as a template.
 
 1. Add `thyemelaf-spring` dependency to your dependencies
@@ -95,7 +96,7 @@ Thymeleaf has a spring integration project, that eases the integration of **Spri
 This configuration will make the thymeleaf resolver the `ViewResolver` of Spring MVC, the `<property name="templateMode" value="HTML5" />` is particulary important, as it sets the mode of which thymeleaf should operate, we here specify the mode to be **HTML5**, which means that thymeleaf should produce valid HTML5 html.
 _____________________
 
-### **Attributes**
+### Attributes
 Thymeleaf is an attribute based template engine, it processes attributes and their values to build it's DOM tree.
 
 * `th:text`: this attribute is responsible for displaying text that is evaluated from the expression inside it, it will process the expression and then display the text **html-encoded**, 
