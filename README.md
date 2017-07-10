@@ -150,7 +150,7 @@ The iteration object `prod` can then be accessed in the context of the tag `<th>
 
 	for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
 _____________________
-###**Expressions**
+### **Expressions**
 Thymeleaf works based on many expressions, thymeleaf has different expression syntax other than the traditional `${variablename.propertyname}` syntax, namely:
 
 * `#{message.in.proprties.file}` similar to the **i18n** resolver in **JSF**, this expressions will look for the value provided in the localization properties files provided to the application.
@@ -182,16 +182,16 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
 	  
 * `*{property}`: This is used the same way as the `${variable}` but works on selected objects, i.e. objects which are set using `th:object` attribute, for example
 
-	```html
-          <div th:object="${session.user}">
-	       <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
-	       <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
-	       <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
-          </div>
-	```
+```html
+  <div th:object="${session.user}">
+       <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
+       <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
+       <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
+  </div>
+```
 	
-	This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
-	     *Note*: The `th:object` is defined only in the context of the tag it's declare on, this means that it's not available outside the context of that tag.
+This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
+*Note*: The `th:object` is defined only in the context of the tag it's declare on, this means that it's not available outside the context of that tag.
 * `@{/link/path}`: This will create a link to the path specified relative to the deployment context, so if the application is deployed at context **my-app**, then the generated path will be **/my-app/link/path**.
 To add get parameters use `@{/link/path(param=value)}` which will generate **/link/path?param=value**
 For Path variables use: `@{/link/{pathVariable}/path(pathVariable=${variable})}`
