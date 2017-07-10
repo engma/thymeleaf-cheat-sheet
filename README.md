@@ -149,7 +149,9 @@ The iteration object `prod` can then be accessed in the context of the tag `<th>
 	```
 
 	for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
-_____________________
+
+__________
+
 ### **Expressions**
 Thymeleaf works based on many expressions, thymeleaf has different expression syntax other than the traditional `${variablename.propertyname}` syntax, namely:
 
