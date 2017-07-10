@@ -136,6 +136,7 @@ The `value` attribute will be set to the value of `#{subscribe.submit}` after pr
 	    <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
 	</tr>
 	``` 
+	
 	The `th:each="prod,iterStat : ${prods}"` is equivilat to `for(Product prod : prods)` and the `iterStat` is the status variable of the iteration, it contains inforamtion about current iteration like its number,index,total count ...etc. 
 The iteration object `prod` can then be accessed in the context of the tag `<th>`, meaning it will only exist within the tag that it's been defined in, for more information check [iteration](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#iteration)
 * `th:if`: Evaluates the conditions specified in the attribute and if they are true, the tag is displayed, if not they are not displayed, example : `th:if="${user.admin}"`
@@ -149,6 +150,7 @@ The iteration object `prod` can then be accessed in the context of the tag `<th>
 		<p th:case="*">User is some other thing</p>
 	</div>
 	```
+	
 	for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
 
 __________
@@ -184,6 +186,7 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
           <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
 	  
 * `*{property}`: This is used the same way as the `${variable}` but works on selected objects, i.e. objects which are set using `th:object` attribute, for example
+
 ```html
 <div th:object="${session.user}">
     <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
