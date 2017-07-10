@@ -72,7 +72,8 @@ This will override the fragments content withe the content in the `div` tag.
 
 for more information, please check [this](https://github.com/ultraq/thymeleaf-layout-dialect)
 
----------------------
+____________
+
 ### Spring Integration
 Thymeleaf has a spring integration project, that eases the integration of **Spring MVC** with thymeleaf as a template.
 
@@ -109,9 +110,11 @@ Thymeleaf has a spring integration project, that eases the integration of **Spri
 	```   
 
 	This configuration will make the thymeleaf resolver the `ViewResolver` of Spring MVC, the `<property name="templateMode" value="HTML5" />` is particulary important, as it sets the mode of which thymeleaf should operate, we here specify the mode to be **HTML5**, which means that thymeleaf should produce valid HTML5 html.
+	
 _____________________
 
-### Attributes
+### **Attributes**
+
 Thymeleaf is an attribute based template engine, it processes attributes and their values to build it's DOM tree.
 
 * `th:text`: this attribute is responsible for displaying text that is evaluated from the expression inside it, it will process the expression and then display the text **html-encoded**, 
@@ -133,8 +136,7 @@ The `value` attribute will be set to the value of `#{subscribe.submit}` after pr
 	    <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
 	</tr>
 	``` 
-
-The `th:each="prod,iterStat : ${prods}"` is equivilat to `for(Product prod : prods)` and the `iterStat` is the status variable of the iteration, it contains inforamtion about current iteration like its number,index,total count ...etc. 
+	The `th:each="prod,iterStat : ${prods}"` is equivilat to `for(Product prod : prods)` and the `iterStat` is the status variable of the iteration, it contains inforamtion about current iteration like its number,index,total count ...etc. 
 The iteration object `prod` can then be accessed in the context of the tag `<th>`, meaning it will only exist within the tag that it's been defined in, for more information check [iteration](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#iteration)
 * `th:if`: Evaluates the conditions specified in the attribute and if they are true, the tag is displayed, if not they are not displayed, example : `th:if="${user.admin}"`
 * `th:unless`: Is the opposite of `th:if`, it will display the tag if the value is false, so `th:unless="${user.admin}"` is equal to `th:if="${!(user.admin)}"`
@@ -147,7 +149,6 @@ The iteration object `prod` can then be accessed in the context of the tag `<th>
 		<p th:case="*">User is some other thing</p>
 	</div>
 	```
-
 	for more information check [conditional_evaluation](http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-evaluation)
 
 __________
@@ -183,15 +184,14 @@ Example: `<p th:text="#{brand.name}">Brand Name</p>`, when using spring it will 
           <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
 	  
 * `*{property}`: This is used the same way as the `${variable}` but works on selected objects, i.e. objects which are set using `th:object` attribute, for example
-
 ```html
-  <div th:object="${session.user}">
-       <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
-       <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
-       <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
-  </div>
+<div th:object="${session.user}">
+    <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
+    <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
+    <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
+</div>
 ```
-	
+
 This will access properties on `${session.user}` object directly using the `*{...}` syntax, like for `*{firstName}`, this is equal to using `${session.user.firstName}`
 *Note*: The `th:object` is defined only in the context of the tag it's declare on, this means that it's not available outside the context of that tag.
 * `@{/link/path}`: This will create a link to the path specified relative to the deployment context, so if the application is deployed at context **my-app**, then the generated path will be **/my-app/link/path**.
