@@ -9,13 +9,13 @@ This is a cheat sheet to summarize all the main thymeleaf features and how to us
 
 Thymeleaf is an engine that builds dynamic pages from templates that are written in XHTML with the help of some special attributes, so it is a **template engine**.
 
-A template engine in Java is an engine that parses XHTML pages which contain special tags or attributes or syntax, those variables are bound to fields of beans on the server side, and resolves them into their actual values, then processes the page according to those values and builds a normal HTML page.
+A template engine in Java is an engine that parses XHTML pages which contain special tags and attributes or syntax, those attributes will then use some variables to build the web page, and those variables are bound to fields of java beans on the server side, the engine will resolve those variables in the attributes to their actual values, then process the page according to those values and builds a normal HTML page.
 
-The templating engine will then resolve the values of the list of students that was given from the controller, and then use those values to replace the attributes and dummy text with actual data from the fetched list.
+For example, the templating engine will resolve the values of the list of students which was passed through the controller, and then use those values to replace the attributes and dummy text with actual data from the fetched list.
 
-Thymeleaf is an **in-memory** template engine, so it does all of it's processing in memory, it builds a DOM that maps to the HTML of the page and binds the values to those fields which are displayed, and when values from server change the parsed fields and pages are updated accordingly, also it's caching is an in-memory caching system, meaning cache will invalidate with server restarts.
+Thymeleaf is an **in-memory** template engine, so it does all of it's processing in memory which makes quite fast, it builds a DOM that maps to the HTML of the page and binds the values to those fields which are displayed, and when the values from the server change the parsed fields and pages are updated accordingly, also it's caching is an in-memory caching system, which means that the cache will invalidate with every server restart.
 
-Thymeleaf is a template engine that relys mostly on **attributes** instead of **tags** as in JSP or JSF, this makes it testable in the browser directly without requiring a server to parse the special html tags, which eases the work between designer and developer, as they can both test the same page.
+Thymeleaf is a template engine that relys mostly on **attributes**, unlike common engines which rely on **tags** as in JSP or JSF, this makes it testable in the browser directly without requiring a server to parse the special html tags, which eases the work between designer and developer, as they can both test the same page.
 
 Those attributes are then translated and processed by Thymeleaf into normal HTML.
 ### How it works
