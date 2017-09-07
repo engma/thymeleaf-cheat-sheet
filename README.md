@@ -17,7 +17,6 @@ Thymeleaf is an **in-memory** template engine, so it does all of it's processing
 
 Thymeleaf is a template engine that relys mostly on **attributes**, unlike common engines which rely on **tags** as in JSP or JSF, this makes it testable in the browser directly without requiring a server to parse the special html tags, which eases the work between designer and developer, as they can both test the same page.
 
-Those attributes are then translated and processed by Thymeleaf into normal HTML.
 ### How it works
 `<p th:text="'Thymeleaf will display this'">text</p>`
 Here thymeleaf will process the text inside the `th:text` attribute, and replace the contents of the `<p>` tag with it.
